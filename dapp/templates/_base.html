@@ -1,0 +1,33 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content=
+		"width=device-width, initial-scale=1.0">
+    <title>{% block title %}Untitled{% endblock %}</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Itim&family=Kanit&family=Mitr&family=Prompt&family=Sarabun&display=swap" rel="stylesheet">
+
+	{% compress css %}
+	<link rel="stylesheet"
+		href="{% static 'src/output.css' %}">
+	{% endcompress %}
+
+	<script src="{% static 'js/htmx.min.js' %}" defer></script>
+
+	<script src="https://unpkg.com/htmx.org@2.0.2"></script>
+
+</head>
+
+<body class="container mx-auto" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}>
+    {% block content %}
+    {% endblock content %}
+</body>
+
+</html>

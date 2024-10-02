@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="mt-4 text-center text-3xl">
+    Hello World
+    <div id="result">
+        waiting for update......
+    </div>
+    <div >
+        <button hx-get="{% url 'update-content' %}" hx-target="#result" hx-swap="outerHTML" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 
+        focus:outline-none dark:focus:ring-blue-800 my-4">
+            Click to update
+        </button>
+    </div>
+
+    <form hx-post="{% url 'update-content2' %}" hx-target="#result2" hx-swap="innerHTML" class="my-7">
+        {% csrf_token %}
+            <input type="text" name="data" placeholder="Enter something" class="input">
+            <button type="submit" class="btn-blue">
+            Submit
+            </button>
+    </form>
+
+    <div id="result2">
+        waiting for form submission....
+    </div>
+
+    <div>  Todo List   </div>
+    <form hx-post="{% url 'add_todo' %}" hx-target="#todo-list" hx-swap="beforeend" class="my-7">
+        {% csrf_token %}
+            <input type="text" name="title" placeholder="Enter something" class="input">
+            <button type="submit" class="btn-blue">
+            Add Todo
+            </button>
+    </form>
+
+    <ul id="todo-list">
+        {% for todo in todos %}
+            {% include 'todo_item.html' %}
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock content %}
